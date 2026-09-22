@@ -1,7 +1,10 @@
 import express from 'express'
 import { query, uploadFiles } from '../controllers/pdf.controllers.js'
 import multer from "multer"
-const upload = multer({ dest: 'uploads/',
+const upload = multer({
+    dest:'uploads/'
+
+
     //     fileFilter: (req, file, cb) => {
     //     const allowedTypes = [
     //         "application/pdf",
@@ -15,10 +18,11 @@ const upload = multer({ dest: 'uploads/',
     //         cb(new Error("Only PDF and Word documents are allowed"));
     //     }
     // }
+}
 
- });
+ );
 
 const router = express.Router()
-router.post('/upload_document',upload.array('uploaded_file', 100), uploadFiles)
+router.post('/upload_document',upload.single('uploaded_file'), uploadFiles)
 router.get('/query_about_product', query)
 export default router
